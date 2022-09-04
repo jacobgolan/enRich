@@ -49,6 +49,17 @@ key functions:
 The function `testFASTA()` allows us to create a dummy FASTA for
 testing. You must specify the following arguments:
 
+``` r
+testFASTA(
+  seqlength = c(75,100), # minimum and maximum sequence length range
+  DNA_prob = rep(0.25,4), # relative freq of A, T, G, C
+  no_seqs = 10, # how many sequences to simulate
+  out.fasta = TRUE, #TRUE if you want to save a .fasta file to your computer
+  file_name = "dsi", #only specify if out.fasta=TRUE
+  loc = "LocusX" # locus name
+)
+```
+
 When working with real data you will likely need to import a file from
 your computer into R. This can be done easily using `readFASTA()`
 
@@ -62,15 +73,19 @@ dsi<-readFASTA("dsi.fasta")
 
 Running either `testFASTA()` or `readFASTA()` results in a dataframe
 with two columns. The first column is the sequence name (header) and the
-second column is the sequence itself.
+second column is the sequence itself. For example, the our test FASTA
+saved as `dsi.fasta` appears as:
 
 ``` r
-testFASTA(
-  seqlength = c(75,100), # minimum and maximum sequence length range
-  DNA_prob = rep(0.25,4), # relative freq of A, T, G, C
-  no_seqs = 10, # how many sequences to simulate
-  out.fasta = TRUE, #TRUE if you want to save a .fasta file to your computer
-  file_name = "dsi", #only specify if out.fasta=TRUE
-  loc = "LocusX" # locus name
-)
+#               seqid                                                                                               seqstr
+# 1   Sample_1_LocusX      GTCTGGCGTATGTCATAGACCGTAAACTCTTCTACCCCCTTCTAGACATATGTTGCGACACCCTACGGCACTGTCTGGATGAGGGCCACGAAAGG
+# 2   Sample_2_LocusX          GCACACCGCTGTGCGTGTTCTTTCATCGAATGCTGAGATCCCTCGAAGTTGCCCTGCCAAAGCGTGCCCCACCTACCCCTAGTGTGACAAT
+# 3   Sample_3_LocusX   AAAGTCAATTGTTCAGTCTACCCCCTGCTGTTGGTCGTTGAGTTACTTTGATAGTGGAGATGTACGGCAATAAGTGTCATTGTATGATAACGAGCTAG
+# 4   Sample_4_LocusX                       AATGCCTGAGCAAGGATCGATGAAGGACCCAATAGACTCGGCAACGACCCGGGATTCTACCCACACATCCTGTGGGTT
+# 5   Sample_5_LocusX                 TTCATCTTTCACCCAAGTAAATGGTAAATGTAGCATCTTGCAACTTTATCTTGAGTGGCGAGGTATATGCAGTGTTGTTTTTGC
+# 6   Sample_6_LocusX           GTGAGGGTACTATTCGAGGTTCAACAATCGCGAGCCGCTTCAGCCCCAGCAATCCCGTTTGGGAGCGACTCGCGCTCGGGAAGATAGCGA
+# 7   Sample_7_LocusX                         AAGCCCGTCTTATTCGCATCAAACCAAGCGAATTTACTGGTTCACGCATCATTCTGGTCATGCGAGTCCTGAACTA
+# 8   Sample_8_LocusX     ACTCTTGCGCGGCGAGAATTTCTGGTGCAGTGCGGAGAAGCACAGCCCAACCCGTCCTCCGTAAAATGTACAGTAGGGGTAGTGGTTTCTTCGCTC
+# 9   Sample_9_LocusX TAAGGGCAGGCAGATTACACTCCAAAAGAGATGTGTACAGCCTTGCAGCTTCTCCCTCGCCGTAACTACAGATGGAGCCCATGTGCGCCCACTTGATCCT
+# 10 Sample_10_LocusX  GATGGCGCGAAAGAGCTGGGAATTCAAACGCGCAAATCACCACTGACTGTCAGTTCAACTGAAAGGCCTAAAAGCGATGACTAATGCGATAGGCTCAAA
 ```
