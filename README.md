@@ -7,9 +7,8 @@
 <!-- badges: end -->
 
 `enRich` is a simple R package designed to interface with the [Local
-Contexts Hub](https://localcontexts.org/tk-label-hub/) API.
-
-## Installation
+Contexts Hub](https://localcontexts.org/tk-label-hub/) API. ![`enRich`
+Workflow](enRich_workflow.png) \## Installation
 
 ``` r
 # install.packages("devtools")
