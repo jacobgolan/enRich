@@ -19,7 +19,7 @@ You can install the development version of enRich from
 devtools::install_github("jacobgolan/enRich")
 ```
 
-## Getting started
+# Getting started
 
 Install and load `enRich`
 
@@ -49,5 +49,13 @@ key functions:
 The function `testFASTA()` allows us to create a dummy FASTA for
 testing. You must specify the following arguments:
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+When working with real data you will likely need to import a file from
+your computer into R. This can be done easily using `readFASTA()`
+
+For simplicity, we will just read in the dummy FASTA we just created
+with `testFASTA()`. But in practice you can read in an FASTA file
+downloaded from NCBI, custom created, etc.
+
+``` r
+dsi<-readFASTA("dsi.fasta")
+```
