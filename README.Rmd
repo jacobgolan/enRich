@@ -22,7 +22,8 @@ knitr::opts_chunk$set(
 
 
 ![`enRich` Workflow](enRich_workflow.png)
-## Installation
+
+# Installation
 
 ``` r
 # install.packages("devtools")
