@@ -25,6 +25,15 @@ Install and load `enRich`
 
 ``` r
 library(enRich)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 ```
 
 `enRich` is a simple and easy to use package. Here is an index of its
@@ -73,8 +82,8 @@ dsi<-readFASTA("dsi.fasta")
 
 Running either `testFASTA()` or `readFASTA()` results in a dataframe
 with two columns. The first column is the sequence name (header) and the
-second column is the sequence itself. For example, the our test FASTA
-saved as `dsi.fasta` appears as:
+second column is the sequence itself. For example, if we run
+`print(dsi)` we can see how sequences are stored:
 
 ``` r
 #               seqid                                                                                               seqstr
@@ -89,3 +98,83 @@ saved as `dsi.fasta` appears as:
 # 9   Sample_9_LocusX TAAGGGCAGGCAGATTACACTCCAAAAGAGATGTGTACAGCCTTGCAGCTTCTCCCTCGCCGTAACTACAGATGGAGCCCATGTGCGCCCACTTGATCCT
 # 10 Sample_10_LocusX  GATGGCGCGAAAGAGCTGGGAATTCAAACGCGCAAATCACCACTGACTGTCAGTTCAACTGAAAGGCCTAAAAGCGATGACTAATGCGATAGGCTCAAA
 ```
+
+# Step 2: Find Project Data
+
+`ernRich` allows you to index all of the projects in the LC Hub. You can
+also search by unique ID, or if you are unsure of the uniqe ID, you can
+find it by searching for matching titles, etc.
+
+To start, let’s say we already know the unique ID of the project we are
+interested in:
+
+``` r
+sample.proj<-find.projects("259854f7-b261-4c8c-8556-4b153deebc18")
+lapply(sample.proj, names)[[1]]
+#>  [1] "unique_id"                "providers_id"            
+#>  [3] "project_page"             "title"                   
+#>  [5] "project_privacy"          "date_added"              
+#>  [7] "date_modified"            "created_by"              
+#>  [9] "bc_labels"                "tk_labels"               
+#> [11] "project_boundary_geojson"
+#> [1] "unique_id"                "providers_id"            
+#> [3] "title"                    "project_privacy"         
+#> [5] "date_added"               "date_modified"           
+#> [7] "bc_labels"                "tk_labels"               
+#> [9] "project_boundary_geojson"
+```
+
+By searching by a project’s unique ID we get to all the project
+metadata. Above displays all of the metadata fields.
+
+``` r
+sample.proj[[1]]$unique_id #displays the unique ID we searned for
+#> [1] "259854f7-b261-4c8c-8556-4b153deebc18"
+#> [1] "259854f7-b261-4c8c-8556-4b153deebc18"
+sample.proj[[1]]$providers_id
+#> NULL
+#> NULL
+sample.proj[[1]]$title # project title
+#> [1] "Sample Project"
+#> [1] "Sample Project"
+sample.proj[[1]]$project_privacy # project privacy
+#> [1] "Public"
+#> [1] "Public"
+sample.proj[[1]]$date_added
+#> [1] "2021-10-22T18:15:41.507481Z"
+#> [1] "2021-10-22T18:15:41.507481Z"
+sample.proj[[1]]$date_modified
+#> [1] "2022-07-19T22:46:08.582871Z"
+#> [1] "2021-10-22T18:15:41.507513Z"
+```
+
+We can also see that there are fields in sample.proj for BC and TK
+labels
+
+``` r
+sample.proj[[1]]$bc_labels %>% names()
+#>  [1] "unique_id"    "name"         "label_type"   "language_tag" "language"    
+#>  [6] "label_text"   "img_url"      "svg_url"      "audiofile"    "community"   
+#> [11] "translations" "created"      "updated"
+#>  [1] "name"         "label_type"   "language_tag" "language"     "default_text"
+#>  [6] "img_url"      "svg_url"      "community"    "translations" "created"     
+#> [11] "updated"
+sample.proj[[1]]$tk_labels %>% names()
+#>  [1] "unique_id"    "name"         "label_type"   "language_tag" "language"    
+#>  [6] "label_text"   "img_url"      "svg_url"      "audiofile"    "community"   
+#> [11] "translations" "created"      "updated"
+#>  [1] "name"         "label_type"   "language_tag" "language"     "default_text"
+#>  [6] "img_url"      "svg_url"      "community"    "translations" "created"     
+#> [11] "updated"
+```
+
+There are many ways to parse the image files associated with TK and BC
+labels. Below is just one example of how to do so. You can see a BC
+Provenance label is displayed. All we had to do was specify the uniquqe
+ID and the API will take care of the rest!
+
+``` r
+plot(imager::load.image(sample.proj[[1]]$bc_labels$img_url),axes=FALSE)
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
