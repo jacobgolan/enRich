@@ -177,4 +177,38 @@ ID and the API will take care of the rest!
 plot(imager::load.image(sample.proj[[1]]$bc_labels$img_url),axes=FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" /> But
+what happens if you don’t know the unique ID for a project? We can still
+find it!
+
+``` r
+tmp<-index.all.projects() # Import a table of all Hub projects
+id.search.out<-find.project.id(tmp, title="Two") #Search for projects with the word 'Two' in their title
+```
+
+Looks like there is one project that matches our criterion.
+
+``` r
+UQID<-as.character(id.search.out$unique_id)
+```
+
+Gets us the unique ID of the project we were looking for!
+
+# Step 3: Appending Unique IDs to our Sequences
+
+Now that we know the relevant unique ID, we can append it to our FASTA
+headers. We will use the FASTA we read in before in Step 1.
+
+``` r
+outputFASTA(
+  seqs = dsi$seqstr,
+  seqid = dsi$seqid,
+  uqID = UQID, # the uniqe ID for the project we found above in Step 3
+  filename = "dsi.with.hub.metadata" # .fasta is automatically added
+)
+```
+
+Now we can see a project’s unique ID has been appended to the headers of
+al of our sequences! These seqeunces can now we deposited anywhere with
+the appropriate provenence data easily parsed from each sequence’s
+unique ID string.

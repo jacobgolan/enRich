@@ -12,6 +12,7 @@ index.all.projects<-function(){
   #hub.base<-"https://localcontextshub.org/api/v1"
   return(
 jsonlite::fromJSON(rawToChar(httr::GET(
-  jsonlite::fromJSON(rawToChar(httr::GET("https://localcontextshub.org/api/v1")$content))$`projects list`)$content))$results
+  jsonlite::fromJSON(rawToChar(
+    httr::GET("https://localcontextshub.org/api/v1")$content))$projects_list)$content))$results
 )}
 
