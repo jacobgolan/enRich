@@ -21,25 +21,28 @@ devtools::install_github("jacobgolan/enRich")
 
 ## Getting started
 
-Install and load \#enrichR
+Install and load `enrichR`
 
 ``` r
 library(enRich)
 ## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+`enRich` is a simple and easy to use package. Here is an index of its
+key functions:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+?index.all.projects() # create a table of all projects in the LC Hub
+
+?find.project.id() #search for a project's unique ID
+
+?find.projects() #find and retrieve projects' metadata, notices and TK/BC labels
+
+?readFASTA() #import a FASTA file into R
+
+?outputFASTA() #export a FASTA file from R
+
+?testFASTA() #create a dummy FASTA for learning
 ```
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
