@@ -6,13 +6,10 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-enrichR is a simple R package designed to interface with the Local
-Contexts Hub API.
+enrichR is a simple R package designed to interface with the [Local
+Contexts Hub](https://localcontexts.org/tk-label-hub/) API.
 
 ## Installation
-
-You can install the development version of enRich from
-[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
