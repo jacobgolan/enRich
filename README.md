@@ -59,3 +59,18 @@ downloaded from NCBI, custom created, etc.
 ``` r
 dsi<-readFASTA("dsi.fasta")
 ```
+
+Running either `testFASTA()` or `readFASTA()` results in a dataframe
+with two columns. The first column is the sequence name (header) and the
+second column is the sequence itself.
+
+``` r
+testFASTA(
+  seqlength = c(75,100), # minimum and maximum sequence length range
+  DNA_prob = rep(0.25,4), # relative freq of A, T, G, C
+  no_seqs = 10, # how many sequences to simulate
+  out.fasta = TRUE, #TRUE if you want to save a .fasta file to your computer
+  file_name = "dsi", #only specify if out.fasta=TRUE
+  loc = "LocusX" # locus name
+)
+```
