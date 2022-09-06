@@ -34,7 +34,7 @@ devtools::install_github("jacobgolan/enRich")
 
 Install and load `enRich`
 
-```{r echo=F}
+```{r echo=T}
 library(enRich)
 library(dplyr)
 ```
