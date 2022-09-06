@@ -22,18 +22,14 @@ devtools::install_github("jacobgolan/enRich")
 
 Install and load `enRich`
 
-``` r
-library(enRich)
-library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-```
+    #> 
+    #> Attaching package: 'dplyr'
+    #> The following objects are masked from 'package:stats':
+    #> 
+    #>     filter, lag
+    #> The following objects are masked from 'package:base':
+    #> 
+    #>     intersect, setdiff, setequal, union
 
 `enRich` is a simple and easy to use package. Here is an index of its
 key functions:
@@ -72,7 +68,7 @@ When working with real data you will likely need to import a file from
 your computer into R. This can be done easily using `readFASTA()`
 
 For simplicity, we will just read in the dummy FASTA we just created
-with `testFASTA()`. But in practice you can read in an FASTA file
+with `testFASTA()`. But, in practice you can read in an FASTA file
 downloaded from NCBI, custom created, etc.
 
 ``` r
@@ -80,9 +76,9 @@ dsi<-readFASTA("dsi.fasta")
 ```
 
 Running either `testFASTA()` or `readFASTA()` results in a dataframe
-with two columns. The first column is the sequence name (header) and the
-second column is the sequence itself. For example, if we run
-`print(dsi)` we can see how sequences are stored:
+with two columns. The first column is the sequence name (ie., a sequence
+header) and the second column is the sequence itself. For example, if we
+run `print(dsi)` we can see how sequences are stored:
 
 ``` r
 #               seqid                                                                                               seqstr
@@ -100,7 +96,7 @@ second column is the sequence itself. For example, if we run
 
 # Step 2: Find Project Data
 
-`ernRich` allows you to index all of the projects in the LC Hub. You can
+`enRich` allows you to index all of the projects in the LC Hub. You can
 also search by unique ID, or if you are unsure of the uniqe ID, you can
 find it by searching for matching titles, etc.
 
@@ -147,7 +143,7 @@ sample.proj[[1]]$date_modified
 #> [1] "2021-10-22T18:15:41.507513Z"
 ```
 
-We can also see that there are fields in sample.proj for BC and TK
+We can also see that there are fields in `sample.proj` for BC and TK
 labels
 
 ``` r
@@ -176,16 +172,17 @@ ID and the API will take care of the rest!
 plot(imager::load.image(sample.proj[[1]]$bc_labels$img_url),axes=FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" /> But
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" /> But
 what happens if you don’t know the unique ID for a project? We can still
 find it!
 
 ``` r
-tmp<-index.all.projects() # Import a table of all Hub projects
-id.search.out<-find.project.id(tmp, title="Two") #Search for projects with the word 'Two' in their title
+all.projects<-index.all.projects() # Import a table of all Hub projects
+id.search.out<-find.project.id(all.projects, title="Two") #Search for projects with the word 'Two' in their title
 ```
 
-Looks like there is one project that matches our criterion.
+Looks like there is one project that matches our criterion (i.e., any
+project with “Two” in its title).
 
 ``` r
 UQID<-as.character(id.search.out$unique_id)
@@ -208,6 +205,6 @@ outputFASTA(
 ```
 
 Now we can see a project’s unique ID has been appended to the headers of
-al of our sequences! These seqeunces can now we deposited anywhere with
+al of our sequences! These sequences can now we deposited anywhere with
 the appropriate provenence data easily parsed from each sequence’s
 unique ID string.

@@ -34,7 +34,7 @@ devtools::install_github("jacobgolan/enRich")
 
 Install and load `enRich`
 
-```{r example}
+```{r echo=F}
 library(enRich)
 library(dplyr)
 ```
@@ -72,13 +72,13 @@ testFASTA(
 
 When working with real data you will likely need to import a file from your computer into R. This can be done easily using `readFASTA()`
 
-For simplicity, we will just read in the dummy FASTA we just created with `testFASTA()`. But in practice you can read in an FASTA file downloaded from NCBI, custom created, etc.
+For simplicity, we will just read in the dummy FASTA we just created with `testFASTA()`. But, in practice you can read in an FASTA file downloaded from NCBI, custom created, etc.
 
 ```{r}
 dsi<-readFASTA("dsi.fasta")
 
 ```
-Running either `testFASTA()` or `readFASTA()` results in a dataframe with two columns. The first column is the sequence name (header) and the second column is the sequence itself. For example, if we run `print(dsi)` we can see how sequences are stored:
+Running either `testFASTA()` or `readFASTA()` results in a dataframe with two columns. The first column is the sequence name (ie., a sequence header) and the second column is the sequence itself. For example, if we run `print(dsi)` we can see how sequences are stored:
 
 ```{r, echo=T}
 #               seqid                                                                                               seqstr
@@ -95,7 +95,7 @@ Running either `testFASTA()` or `readFASTA()` results in a dataframe with two co
 ```
 
 # Step 2: Find Project Data
-`ernRich` allows you to index all of the projects in the LC Hub. You can also search by unique ID, or if you are unsure of the uniqe ID, you can find it by searching for matching titles, etc.
+`enRich` allows you to index all of the projects in the LC Hub. You can also search by unique ID, or if you are unsure of the uniqe ID, you can find it by searching for matching titles, etc.
 
 To start, let’s say we already know the unique ID of the project we are interested in:
 
@@ -125,7 +125,7 @@ sample.proj[[1]]$date_modified
 #> [1] "2021-10-22T18:15:41.507513Z"
 ```
 
-We can also see that there are fields in sample.proj for BC and TK labels
+We can also see that there are fields in `sample.proj` for BC and TK labels
 
 ```{r, echo=T}
 sample.proj[[1]]$bc_labels %>% names()
@@ -147,11 +147,11 @@ But what happens if you don’t know the unique ID for a project? We can still f
 
 
 ```{r, echo=T}
-tmp<-index.all.projects() # Import a table of all Hub projects
-id.search.out<-find.project.id(tmp, title="Two") #Search for projects with the word 'Two' in their title
+all.projects<-index.all.projects() # Import a table of all Hub projects
+id.search.out<-find.project.id(all.projects, title="Two") #Search for projects with the word 'Two' in their title
 ```
 
-Looks like there is one project that matches our criterion.
+Looks like there is one project that matches our criterion (i.e., any project with "Two" in its title).
 ```{r, echo=T}
 UQID<-as.character(id.search.out$unique_id)
 
@@ -170,7 +170,7 @@ outputFASTA(
 )
 ```
 
-Now we can see a project's unique ID has been appended to the headers of al of our sequences! These seqeunces can now we deposited anywhere with the appropriate provenence data easily parsed from each sequence's unique ID string.
+Now we can see a project's unique ID has been appended to the headers of al of our sequences! These sequences can now we deposited anywhere with the appropriate provenence data easily parsed from each sequence's unique ID string.
 
 
 
